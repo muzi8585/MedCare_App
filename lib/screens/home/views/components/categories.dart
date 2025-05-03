@@ -1,56 +1,70 @@
+import 'package:ecommerce_cataloge/entry_point.dart';
+import 'package:ecommerce_cataloge/route/route_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ecommerce_cataloge/route/screen_export.dart';
-
 import '../../../../constants.dart';
 
-// For preview
 class CategoryModel {
   final String name;
-
-  final String? imageUrl, route;
+  final String? imageUrl;
+  final VoidCallback route;
 
   CategoryModel({
     required this.name,
     required this.imageUrl,
-    this.route,
+    required this.route,
   });
 }
 
-List<CategoryModel> demoCategories = [
-  CategoryModel(
-      name: "Tiles",
-      imageUrl:
-          'https://img.freepik.com/premium-photo/modern-ceramic-tiles-display-luxury-shopping-mall-shopping-mall-sell-ceramic-materials-tile_255667-81169.jpg?uid=R154965348&ga=GA1.1.2076787137.1740126067&semt=ais_hybrid',
-      route: 'dummy0'),
-  CategoryModel(
-      name: "Bathroom Tiles",
-      imageUrl:
-          "https://img.freepik.com/free-photo/still-life-putting-up-decorative-vinyls_23-2149683466.jpg?uid=R154965348&ga=GA1.1.2076787137.1740126067&semt=ais_hybrid",
-      route: 'dummy1'),
-  CategoryModel(
-      name: "Floor Tiles",
-      imageUrl:
-          "https://img.freepik.com/free-vector/realistic-ceramic-set-with-pieces-rectangular-facing-tile-with-different-color-patterns-editable-text_1284-31834.jpg?uid=R154965348&ga=GA1.1.2076787137.1740126067&semt=ais_hybrid",
-      route: 'dummy2'),
-  CategoryModel(
-      name: "Imported Tiles",
-      imageUrl:
-          "https://img.freepik.com/free-vector/colored-realistic-ceramic-floor-tiles-icon-set-different-types-colors-patterns_1284-29011.jpg?uid=R154965348&ga=GA1.1.2076787137.1740126067&semt=ais_hybrid",
-      route: 'dummy3'),
-  CategoryModel(
-      name: "Sanitary Ware",
-      imageUrl:
-          "https://img.freepik.com/premium-photo/top-wrench-disassembled-faucet-with-copyspace_696657-638.jpg?uid=R154965348&ga=GA1.1.2076787137.1740126067&semt=ais_hybrid",
-      route: 'dummy4'),
-];
+List<CategoryModel> demoCategoriesBuilder(BuildContext context) => [
+      CategoryModel(
+        name: "Tiles",
+        imageUrl:
+            'https://img.freepik.com/premium-photo/modern-ceramic-tiles-display-luxury-shopping-mall-shopping-mall-sell-ceramic-materials-tile_255667-81169.jpg',
+        route: () {
+          Navigator.pushNamed(context, dummyroute);
+        },
+      ),
+      CategoryModel(
+        name: "Bathroom Tiles",
+        imageUrl:
+            "https://img.freepik.com/free-photo/still-life-putting-up-decorative-vinyls_23-2149683466.jpg",
+        route: () {
+          Navigator.pushNamed(context, dummyroute1);
+        },
+      ),
+      CategoryModel(
+        name: "Floor Tiles",
+        imageUrl:
+            "https://img.freepik.com/free-vector/realistic-ceramic-set-with-pieces-rectangular-facing-tile-with-different-color-patterns-editable-text_1284-31834.jpg",
+        route: () {
+          Navigator.pushNamed(context, dummyroute2);
+        },
+      ),
+      CategoryModel(
+        name: "Imported Tiles",
+        imageUrl:
+            "https://img.freepik.com/free-vector/colored-realistic-ceramic-floor-tiles-icon-set-different-types-colors-patterns_1284-29011.jpg",
+        route: () {
+          Navigator.pushNamed(context, dummyroute3);
+        },
+      ),
+      CategoryModel(
+        name: "Sanitary Ware",
+        imageUrl:
+            "https://img.freepik.com/premium-photo/top-wrench-disassembled-faucet-with-copyspace_696657-638.jpg",
+        route: () {
+          Navigator.pushNamed(context, dummyroute4);
+        },
+      ),
+    ];
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final demoCategories = demoCategoriesBuilder(context);
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -61,19 +75,10 @@ class Categories extends StatelessWidget {
               left: index == 0 ? defaultPadding : defaultPadding / 2,
               right: index == demoCategories.length - 1 ? defaultPadding : 0,
             ),
-            child: CategoryBtn(
+            child: CategoryButton(
               category: demoCategories[index].name,
-              Imageurl: demoCategories[index].imageUrl ?? '',
-              press: () {
-                if (demoCategories[index].route != null) {
-               context.goNamed(demoCategories[index].route!);
-
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Route not defined!")),
-                  );
-                }
-              },
+              imageUrl: demoCategories[index].imageUrl ?? '',
+              onTap: demoCategories[index].route,
             ),
           ),
         ),
@@ -82,17 +87,17 @@ class Categories extends StatelessWidget {
   }
 }
 
-class CategoryBtn extends StatelessWidget {
-  const CategoryBtn({
+class CategoryButton extends StatelessWidget {
+  const CategoryButton({
     super.key,
     required this.category,
-    required this.Imageurl,
-    required this.press,
+    required this.imageUrl,
+    required this.onTap,
   });
 
   final String category;
-  final String Imageurl;
-  final VoidCallback press;
+  final String imageUrl;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +107,15 @@ class CategoryBtn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
-            onTap: press,
-            borderRadius: const BorderRadius.all(Radius.circular(35)),
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(35),
             child: Container(
               height: 50,
               width: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(Imageurl),
+                  image: NetworkImage(imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -119,12 +124,12 @@ class CategoryBtn extends StatelessWidget {
           const SizedBox(height: 3),
           Text(
             category,
-            style:  TextStyle(
+            style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w500,
-              color:Theme.of(context).brightness == Brightness.light
-                ? Colors.black
-                : Colors.white,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
         ],

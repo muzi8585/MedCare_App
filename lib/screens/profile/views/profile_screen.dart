@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               text: "Orders",
               svgSrc: "assets/icons/Order.svg",
               press: () {
-                context.goNamed('orders');
+                context.go('orders');
               },
             ),
             ProfileMenuListTile(
@@ -118,7 +118,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               text: "Preferences",
               svgSrc: "assets/icons/Preferences.svg",
               press: () {
-                context.goNamed('preferences');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PreferencesScreen()),
+                );
               },
             ),
             const SizedBox(height: defaultPadding),

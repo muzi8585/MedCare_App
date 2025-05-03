@@ -3,6 +3,9 @@ const String notificationPermissionScreenRoute = "notification_permission";
 const String preferredLanuageScreenRoute = "preferred_language";
 const String logInScreenRoute = "login";
 const String signUpScreenRoute = "signup";
+
+const String dummyroute00 = '/dummy00';
+const String dummyroute0 = '/dummy0';
 const String profileSetupScreenRoute = "profile_setup";
 const String signUpVerificationScreenRoute = "signup_verification";
 const String passwordRecoveryScreenRoute = "password_recovery";

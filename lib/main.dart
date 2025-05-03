@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,20 +44,22 @@ void registerErrorHandlers() {
   };
 }
 
-class MyApp extends ConsumerWidget {
+
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeProvider);
-
-    return MaterialApp.router(
-      routerConfig: router.router,
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Shop Template by The Flutter Way',
       theme: AppTheme.lightTheme(context),
-      darkTheme: AppTheme.darkTheme(context),
-      themeMode: themeMode,
+
+      themeMode: ThemeMode.light,
+      onGenerateRoute: router.generateRoute,
+      initialRoute: entryPointScreenRoute,
     );
   }
 }

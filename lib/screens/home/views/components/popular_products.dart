@@ -23,13 +23,10 @@ class PopularProducts extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        // While loading use 👇
-        // const ProductsSkelton(),
         SizedBox(
-          height: 220,
+          height: 205,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            // Find demoPopularProducts on models/ProductModel.dart
             itemCount: tilesProducts.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(
@@ -48,14 +45,18 @@ class PopularProducts extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (_) => ProductDetailsScreen(
-                           description: tilesProducts[index].description ?? 'No Description...',
-                              images: [tilesProducts[index].image.toString()],
-                              title: tilesProducts[index].brandName,
-                              subtitle: tilesProducts[index].title,
-                              discPrice: tilesProducts[index].price,
-                              price: tilesProducts[index].priceAfetDiscount??tilesProducts[index].price,
-                               product: tilesProducts[index], tilesProducts:tilesProducts,)));
-                }, 
+                                description: tilesProducts[index].description ??
+                                    'No Description...',
+                                images: [tilesProducts[index].image.toString()],
+                                title: tilesProducts[index].brandName,
+                                subtitle: tilesProducts[index].title,
+                                discPrice: tilesProducts[index].price,
+                                price: tilesProducts[index].priceAfetDiscount ??
+                                    tilesProducts[index].price,
+                                product: tilesProducts[index],
+                                tilesProducts: tilesProducts,
+                              )));
+                },
               ),
             ),
           ),

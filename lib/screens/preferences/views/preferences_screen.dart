@@ -19,6 +19,8 @@ class PreferencesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        
+        automaticallyImplyLeading: false,
         title: const Text("Cookie preferences"),
         actions: [
           TextButton(

@@ -1,0 +1,2 @@
+C:/Users/muzam/OneDrive/Desktop/Project/ecommerce_cataloge/android/app/.cxx/Debug/27c6b122/x86/CMakeFiles/edit_cache.dir
+C:/Users/muzam/OneDrive/Desktop/Project/ecommerce_cataloge/android/app/.cxx/Debug/27c6b122/x86/CMakeFiles/rebuild_cache.dir

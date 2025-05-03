@@ -1,3 +1,4 @@
+import 'package:ecommerce_cataloge/components/product/component/widgetImageFull.dart';
 import 'package:flutter/material.dart';
 import '/components/network_image_with_loader.dart';
 
@@ -54,7 +55,15 @@ class _ProductImagesState extends State<ProductImages> {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(defaultBorderRadious * 2),
                   ),
-                  child: NetworkImageWithLoader(widget.images[index]),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => FullscreenImageViewer(
+                                    imageUrl: widget.images)));
+                      },
+                      child: NetworkImageWithLoader(widget.images[index])),
                 ),
               ),
             ),

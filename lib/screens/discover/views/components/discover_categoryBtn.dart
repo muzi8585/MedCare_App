@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerce_cataloge/constants.dart';
 
-class CategoryButton extends StatelessWidget {
-  const CategoryButton({super.key, required this.category, required this.isActive, required this.press});
+class Categorybutton extends StatelessWidget {
+  const Categorybutton({super.key, required this.category, required this.isActive, required this.press});
 
   final String category;
   final bool isActive;

@@ -1,3 +1,4 @@
+import 'package:ecommerce_cataloge/components/product/component/widgetImageFull.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ecommerce_cataloge/Data/Provider.dart';
@@ -46,7 +47,6 @@ class ProductCard extends ConsumerWidget {
     final bool isInCart = cartItem.quantity > 0;
 
     return SizedBox(
-    
       width: 140,
       child: Container(
         padding: const EdgeInsets.only(left: 6, right: 6, top: 6),
@@ -59,26 +59,33 @@ class ProductCard extends ConsumerWidget {
           onTap: press,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               AspectRatio(
                 aspectRatio: 1.15,
                 child: Stack(
                   children: [
-                    NetworkImageWithLoader(image, radius: defaultBorderRadious),
+                    NetworkImageWithLoader(image,
+                        radius: defaultBorderRadious),
                     if (discountPercent != null)
                       Positioned(
                         right: defaultPadding / 2,
                         top: defaultPadding / 2,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 2),
                           decoration: const BoxDecoration(
                             color: errorColor,
-                            borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadious)),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(defaultBorderRadious)),
                           ),
                           child: Center(
                             child: Text(
                               "$discountPercent% off",
-                              style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w500),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -89,14 +96,20 @@ class ProductCard extends ConsumerWidget {
               const SizedBox(height: 4),
               Text(
                 brandName.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: 8),
               ),
               const SizedBox(height: 2),
               Text(
                 title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 14),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontSize: 14),
               ),
               const SizedBox(height: 4),
               priceAfterDiscount != null
@@ -114,7 +127,8 @@ class ProductCard extends ConsumerWidget {
                         Text(
                           "Rs$price",
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyMedium!.color,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium!.color,
                             fontSize: 10,
                             decoration: TextDecoration.lineThrough,
                           ),
@@ -136,7 +150,9 @@ class ProductCard extends ConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         if (cartItem.quantity > 1) {
-                          ref.read(cartProvider.notifier).decrementQuantity(title);
+                          ref
+                              .read(cartProvider.notifier)
+                              .decrementQuantity(title);
                         } else {
                           ref.read(cartProvider.notifier).removeFromCart(title);
                         }
@@ -148,7 +164,8 @@ class ProductCard extends ConsumerWidget {
                           border: Border.all(color: const Color(0xFF31B0D8)),
                           color: const Color(0xFF31B0D8),
                         ),
-                        child: const Icon(Icons.remove, color: Colors.white, size: 15),
+                        child: const Icon(Icons.remove,
+                            color: Colors.white, size: 15),
                       ),
                     ),
                     Expanded(
@@ -163,14 +180,19 @@ class ProductCard extends ConsumerWidget {
                         child: Center(
                           child: Text(
                             "${cartItem.quantity}",
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
                           ),
                         ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        ref.read(cartProvider.notifier).incrementQuantity(title);
+                        ref
+                            .read(cartProvider.notifier)
+                            .incrementQuantity(title);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(2),
@@ -179,7 +201,8 @@ class ProductCard extends ConsumerWidget {
                           border: Border.all(color: const Color(0xFF31B0D8)),
                           color: const Color(0xFF31B0D8),
                         ),
-                        child: const Icon(Icons.add, color: Colors.white, size: 15),
+                        child: const Icon(Icons.add,
+                            color: Colors.white, size: 15),
                       ),
                     ),
                   ],

@@ -38,15 +38,13 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   void addToCart(CartItem item) {
     final index = state.indexWhere((element) => element.title == item.title);
     if (index != -1) {
-      // ✅ If item exists, increase quantity
       state = [
         ...state.sublist(0, index),
         state[index].copyWith(quantity: state[index].quantity + 1),
         ...state.sublist(index + 1),
       ];
     } else {
-      // ✅ Otherwise, add as a new item
-      state = [...state, item];
+      state = [...state, item]; // item.quantity defaults to 1
     }
   }
 
@@ -68,12 +66,13 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
       if (item.title == title) {
         return item.quantity > 1
             ? item.copyWith(quantity: item.quantity - 1)
-            : item;
+            : null; // remove item if quantity is 1
       }
       return item;
-    }).toList();
+    }).whereType<CartItem>().toList();
   }
 }
+
 
 final cartProvider = StateNotifierProvider<CartNotifier, List<CartItem>>((ref) {
   return CartNotifier();
